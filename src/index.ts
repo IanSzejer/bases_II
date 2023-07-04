@@ -2,10 +2,12 @@ import express from "express"
 import router from "./routes/controller"
 import swaggerUi from "swagger-ui-express";
 import swaggerSetup from "./docs/swagger";
+import * as dotenv from "dotenv";
 
 
 const app = express()
 app.use(express.json())
+dotenv.config()
 
 const PORT = 3000
 

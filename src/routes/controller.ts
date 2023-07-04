@@ -58,30 +58,27 @@ router.get('/user/:userId/:key/balance', (req,_res) =>{
  *        - user
  *      summary: "Buscar usuario por key"
  *      description: Este endpoint buscar un usuario en base a una llave que se tenga de el
- *      requestBody: 
- *          content:
- *                  application/x-www-form-urlencoded:
- *                      
-     
-                "schema": {
-                "type": "object",
-                "properties": {
-                    "name": { 
-                    "description": "Updated name of the pet",
-                    "type": "string"
-                    },
-                    "status": {
-                    "description": "Updated status of the pet",
-                    "type": "string"
-                    }
-                },
-                "required": ["status"] 
-                }
-            }
-            }
+ *      requestBody:
+ *           content:
+ *               'application/x-www-form-urlencoded':
+ *               schema:
+ *               properties:
+ *                   keyType: 
+ *                       description: type of key
+ *                       type: string
+ *                   key:
+ *                       description: key
+ *                       type: string
+ *               required:
+ *                   - keyType
+ *                   - key    
  *      responses:
  *        '200':
  *          description: Retorna el objeto en la coleccion.
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#/components/schemas/user'
  *        '422':
  *          description: Error de validacion.
  */
@@ -97,6 +94,21 @@ router.get('/user/find', (req,res) =>{
     // res.send(conexionApi.getUsers())
 })
 
+/**
+ * Get track
+ * @openapi
+ * /user:
+ *    get:
+ *      tags:
+ *        - user
+ *      summary: "Listar historial"
+ *      description: Este endpoint sirve para listar el historial de transacciones de un usuario  
+ *      responses:
+ *        '200':
+ *          description: Retorna el objeto en la coleccion.
+ *        '422':
+ *          description: Error de validacion.
+ */
 router.get('/user/:userId/history', (req,_res) =>{
     console.log('getUserHistory for: ', req.params.userId)
     // res.send(conexionApi.getUserHistory(req.params.userId))
