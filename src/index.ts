@@ -1,5 +1,8 @@
 import express from "express"
-import controller from "./routes/controller"
+import router from "./routes/controller"
+import swaggerUi from "swagger-ui-express";
+import swaggerSetup from "./docs/swagger";
+
 
 const app = express()
 app.use(express.json())
@@ -11,8 +14,9 @@ app.get('/ping', (_req,res) => {
     res.send('pong!')
 })
 
-app.use('/api/pix', controller)
+app.use('/api/pix', router)
 
+app.use("/documentation",swaggerUi.serve, swaggerUi.setup(swaggerSetup))
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
