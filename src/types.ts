@@ -1,7 +1,7 @@
 export enum KeyTypes {
     Mail = 'mail',
     Passport = 'passport',
-    Cuil = 'Cuil',
+    Cuil = 'cuil',
     PhoneNumber = 'phoneNumber',
     PixKey = 'pixKey'
 }
@@ -12,7 +12,7 @@ export interface User {
     mail: string,
     cuil: number,
     phoneNumber: number,
-    passport: number
+    passport: string
     id: number
 }
 
@@ -22,13 +22,16 @@ export type LoginUser = Omit<User, 'id' | 'cuil' | 'phoneNumber' | 'passport'>
 
 
 export interface AssociateData {
-    key: NumberOrString,
     keyType: KeyTypes,
     cbu: number,
-    financialEntity: string
+    financialEntityId: number
 }
 
-export type BasicData = Omit<AssociateData, 'cbu' | 'financialEntity'>
+export interface BasicData {
+    key: NumberOrString, 
+    keyType: KeyTypes    
+}
+
 
 export interface NumberOrString {
     value: string | number

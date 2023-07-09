@@ -2,21 +2,21 @@ import { AssociateData, BasicData, KeyTypes, LoginUser, NewUser, NumberOrString,
 
 const parseString = (arg: any): string => { 
     if (typeof arg !== 'string'){
-        throw new Error('Incorrect argument')
+        throw new Error('Incorrect argument wasn\'t a string' )
     }
     return arg
 }
 
 const parseNumber = (arg: any): number => {
     if (typeof arg !== 'number'){
-        throw new Error('Incorrect argument')
+        throw new Error('Incorrect argument wasn\'t a Number')
     }
     return arg
 }
 
 const parseStringOrNumber = (arg: any): NumberOrString => {
     if (typeof arg !== 'number' && typeof arg !== 'string'){
-        throw new Error('Incorrect argument')
+        throw new Error('Incorrect argument wasn\'t a string or number')
     }
     const numOrStr : NumberOrString = {
         value: arg
@@ -24,11 +24,11 @@ const parseStringOrNumber = (arg: any): NumberOrString => {
     return numOrStr
 }
 
-const parseKeyType = (arg: any): KeyTypes => {
-    if (!Object.values(KeyTypes).includes(arg)){
-        throw new Error('Incorrect argument')
+const parseKeyType = (arg: string): KeyTypes => {
+    if (!Object.values(KeyTypes).includes(arg as KeyTypes)){
+        throw new Error('Incorrect argument wasn\'t a key type')
     }
-    return arg
+    return arg as KeyTypes
 }
 
 
@@ -38,7 +38,7 @@ export const parseUserData = (object: any): NewUser => {
         mail: parseString(object.mail),
         cuil: parseNumber(object.cuil),
         phoneNumber: parseNumber(object.phoneNumber),
-        passport: parseNumber(object.passport)
+        passport: parseString(object.passport)
     }
     return newUser
 }
@@ -53,12 +53,11 @@ export const parseUserData = (object: any): NewUser => {
 // }
 
 
-export const parseAssociateDataKey = (object: any): AssociateData => {
+export const parseAssociateDataKey = (object: any,keyType: string): AssociateData => {
     const associateData: AssociateData = {
-        key: parseStringOrNumber(object.key),
-        keyType: parseKeyType(object.keyType),
+        keyType: parseKeyType(keyType),
         cbu: parseNumber(object.cbu),
-        financialEntity: parseString(object.financialEntity)
+        financialEntityId: parseInt(object.financialEntity)
     }
     return associateData
 }
@@ -67,7 +66,7 @@ export const parseAssociateDataKey = (object: any): AssociateData => {
 export const parseFindData = (object: any): BasicData => {
     const basicData: BasicData = {
         key: parseStringOrNumber(object.key),
-        keyType: parseKeyType(object.keyType)
+        keyType: parseKeyType(object.key_type)
     }
     
     return basicData

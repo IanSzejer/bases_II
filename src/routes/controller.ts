@@ -1,5 +1,6 @@
 import express from "express"
 import { parseUserData, parsePaymentData, parseAssociateDataKey, parseFindData, parseLoginUserData } from "../services/parse"
+import { DBAsscociate, DBFindUser, DBGetUserCbu, DBRegisterUser } from "../services/postgre"
 
 const router = express.Router()
 
@@ -23,8 +24,10 @@ router.get('/', (_req,res) => {
  *        '422':
  *          description: Error de validacion.
  */
-router.get('/user/:userId/:key/cbu', (req,_res) =>{
-    console.log('getCbu for: ', req.params.userId, req.params.key)
+router.get('/user/:userId/:key_type/cbu', (req,res) =>{
+    console.log('getCbu for: ', req.params.userId, req.params.key_type)
+    DBGetUserCbu(req.params.userId,req.params.key_type,res)
+
     // res.send(conexionApi.getCbu(req.params.userId,req.params.key))
 })
 
@@ -44,9 +47,9 @@ router.get('/user/:userId/:key/cbu', (req,_res) =>{
  *        '422':
  *          description: Error de validacion.
  */
-router.get('/user/:userId/:key/balance', (req,_res) =>{
-    console.log('getBalance for: ', req.params.userId, req.params.key)
-    // res.send(conexionApi.getBalance(req.params.userId, req.params.key))
+router.get('/user/:userId/:key_type/balance', (req,_res) =>{
+    console.log('getBalance for: ', req.params.userId, req.params.key_type)
+    //DBGetUserKeyBalance(req.params.userId,req.params.key_type,res)
 })
 
 /**
@@ -86,11 +89,10 @@ router.get('/user/find', (req,res) =>{
     // body -> keyType, key
     try{
         const findData = parseFindData(req.body)
-        // res.send(conexionApi.generateIMAKey(req.body))
+        DBFindUser(findData,res)
     }catch(e: any){
         res.status(400).send(e.message)
     }
-    console.log('getUses')
     // res.send(conexionApi.getUsers())
 })
 
@@ -123,11 +125,12 @@ router.post('/user/register', (req, res) => {
     // body -> mail, CUIL, phoneNum, passport, passwprd
     try{
         const newUser = parseUserData(req.body)
+        DBRegisterUser(newUser,res)
         // res.send(conexionApi.generateIMAKey(req.body))
-    }catch(e: any){
-        res.status(400).send(e.message)
+    }catch(error){
+        res.status(400).send(error)
     }
-    console.log('POST parameter received are: ',req.body)
+    
 })
 
 // Si no tengo la key (ejemplo si no tengo cargado mi mail)
@@ -135,8 +138,8 @@ router.post('/user/register', (req, res) => {
 router.post('/user/:userId/associate/:key', (req, res) => {
     // body -> key, keyType, financeId, cbuInFinance
     try{
-        const newAssociateDataKey = parseAssociateDataKey(req.body)
-        // res.send(conexionApi.generateIMAKey(req.body))
+        const newAssociateDataKey = parseAssociateDataKey(req.body,req.params.key)
+        DBAsscociate(newAssociateDataKey,req.params.userId,res)
     }catch(e: any){
         res.status(400).send(e.message)
     }
