@@ -1,6 +1,6 @@
 import express from "express"
 import { parseUserData, parsePaymentData, parseAssociateDataKey, parseFindData, parseLoginUserData, parseKeyType } from "../services/parse"
-import { DBAsscociate, DBFindUser, DBGetUserCbu, DBPayment, DBRegisterUser } from "../services/postgre"
+import { DBAsscociate, DBFindUser, DBGetUserBalance, DBGetUserCbu, DBGetUserHistory, DBGetUserHistoryBykey, DBPayment, DBRegisterUser } from "../services/postgre"
 
 const router = express.Router()
 
@@ -47,9 +47,10 @@ router.get('/user/:userId/:key_type/cbu', (req,res) =>{
  *        '422':
  *          description: Error de validacion.
  */
-router.get('/user/:userId/:key_type/balance', (req,_res) =>{
-    console.log('getBalance for: ', req.params.userId, req.params.key_type)
-    //DBGetUserKeyBalance(req.params.userId,req.params.key_type,res)
+router.get('/user/:userId/:key_type/balance', (req,res) =>{
+    //console.log('getBalance for: ', req.params.userId, req.params.key_type)
+    const key = parseKeyType(req.params.key_type)
+    DBGetUserBalance(req.params.userId,key,res)
 })
 
 /**
@@ -111,13 +112,16 @@ router.get('/user/find', (req,res) =>{
  *        '422':
  *          description: Error de validacion.
  */
-router.get('/user/:userId/history', (req,_res) =>{
+router.get('/user/:userId/history', (req,res) =>{
     console.log('getUserHistory for: ', req.params.userId)
+    DBGetUserHistory(req.params.userId,res)
     // res.send(conexionApi.getUserHistory(req.params.userId))
 })
 
-router.get('/user/:userId/:key/history', (req,_res) =>{
-    console.log('getUserHistoryInKey: ', req.params.key)
+router.get('/user/:userId/:key_type/history', (req,res) =>{
+    console.log('getUserHistoryInKey: ', req.params.key_type)
+    const key = parseKeyType(req.params.key_type)
+    DBGetUserHistoryBykey(req.params.userId,key,res)
     // res.send(conexionApi.getUserHistoryInKey(req.params.userId, req.params.key))
 })
 

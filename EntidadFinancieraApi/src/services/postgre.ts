@@ -51,9 +51,10 @@ export const DBDepositAmount = async (cbu: string,amount: number,res: Response):
         console.log(result.rows)
         if (result.rows.length === 0){
           res.status(400).json({error :"Balance not changed"});
-        }else{
-          res.status(200);
+          return 
         }
+        res.status(200).send();
+        
       } catch (error) {
         console.error('Error while consulting data base:', error);
         res.status(500).json({ error: 'Error while consulting data base' + error });

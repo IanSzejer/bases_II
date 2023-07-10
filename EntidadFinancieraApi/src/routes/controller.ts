@@ -40,7 +40,6 @@ router.get('/account/exists/:cbu', (req,res) =>{
 router.put('/account/deposit/:cbu', (req, res) => {
     // body -> mail, CUIL, phoneNum, passport, passwprd
     try{
-        console.log(req.body)
         const amount = parseNumber(req.body.amount)
         DBDepositAmount(req.params.cbu,amount,res)
         // res.send(conexionApi.generateIMAKey(req.body))
