@@ -1,6 +1,6 @@
 import express from "express"
-import { parseUserData, parsePaymentData, parseAssociateDataKey, parseFindData, parseLoginUserData } from "../services/parse"
-import { DBAsscociate, DBFindUser, DBGetUserCbu, DBRegisterUser } from "../services/postgre"
+import { parseUserData, parsePaymentData, parseAssociateDataKey, parseFindData, parseLoginUserData, parseKeyType } from "../services/parse"
+import { DBAsscociate, DBFindUser, DBGetUserCbu, DBPayment, DBRegisterUser } from "../services/postgre"
 
 const router = express.Router()
 
@@ -135,17 +135,14 @@ router.post('/user/register', (req, res) => {
 
 // Si no tengo la key (ejemplo si no tengo cargado mi mail)
 // Si la tengo, key debe ser la misma a la ya registrada
-router.post('/user/:userId/associate/:key', (req, res) => {
+router.post('/user/:userId/associate/:key_type', (req, res) => {
     // body -> key, keyType, financeId, cbuInFinance
     try{
-        const newAssociateDataKey = parseAssociateDataKey(req.body,req.params.key)
+        const newAssociateDataKey = parseAssociateDataKey(req.body,req.params.key_type)
         DBAsscociate(newAssociateDataKey,req.params.userId,res)
     }catch(e: any){
         res.status(400).send(e.message)
     }
-    console.log('POST parameter received are: ',req.body)
-    // Devuelve TRUE si lo puede asociar, FALSE sino
-    // res.send(conexionApi.associateUser(req.params.userId, newAssociateData))
 })
 
 // router.post('/user/:userId/associate', (req, res) => {
@@ -161,18 +158,15 @@ router.post('/user/:userId/associate/:key', (req, res) => {
 //     // res.send(conexionApi.associateUser(req.params.userId, newAssociateData))
 // })
 
-router.post('/payment/user/:userId/:key', (req, res) => {
+router.post('/payment/user/:userId/:key_type', (req, res) => {
     // body -> toUserKey, toUserKeyType , amount
     try{
         const newPayment = parsePaymentData(req.body)
-        // res.send(conexionApi.generateIMAKey(req.body))
-    }catch(e: any){
-        res.status(400).send(e.message)
-    }
-    console.log('POST parameter received are: ', req.body)
-    // Hago el pago -> de quien, desde que banco, para quien, que cantidad
-    // res.send(conexionApi.payment(req.params, newPayment))
-    
+        const key = parseKeyType(req.params.key_type)  
+        DBPayment(req.params.userId,key,newPayment,res)
+    }catch(error){
+        res.status(400).send({error: 'bad param type'})
+    }    
 })
 
 router.put('/user/login', (req, res) => {

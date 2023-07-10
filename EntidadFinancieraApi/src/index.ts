@@ -11,7 +11,7 @@ export const pool = new Pool({
   host: 'localhost',
   database: 'postgres',
   password: 'mysecretpassword',
-  port: 5433, // Puerto predeterminado de PostgreSQL
+  port: 5434, // Puerto predeterminado de PostgreSQL
 });
 
 const app = express()
@@ -25,7 +25,7 @@ app.get('/ping', (_req,res) => {
     res.send('pong!')
 })
 
-app.use('/api/pix', router)
+app.use('/api/entity_1', router)
 
 app.use("/documentation",swaggerUi.serve, swaggerUi.setup(swaggerSetup))
 
