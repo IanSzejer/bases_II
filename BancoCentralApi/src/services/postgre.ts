@@ -12,8 +12,8 @@ export const DBRegisterUser = async (user: NewUser,res: Response): Promise<any> 
         // Envía la respuesta con los datos obtenidos
         res.status(200).json(result.rows);
       } catch (error) {
-        console.error('Error al consultar la base de datos:', error);
-        res.status(500).json({ error: 'Error al consultar la base de datos' + error });
+        console.error('Error while consulting data base:', error);
+        res.status(500).json({ error: 'Error while consulting data base' + error });
       }
 }
 
@@ -28,8 +28,8 @@ export const DBGetUserCbu = async (userId: string,key_type: string,res: Response
         // Envía la respuesta con los datos obtenidos
         res.status(200).json(result.rows);
       } catch (error) {
-        console.error('Error al consultar la base de datos:', error);
-        res.status(500).json({ error: 'Error al consultar la base de datos' + error });
+        console.error('Error while consulting data base:', error);
+        res.status(500).json({ error: 'Error while consulting data base' + error });
       }
 }
 
@@ -43,8 +43,8 @@ export const DBFindUser = async (findData: BasicData,res: Response): Promise<any
         // Envía la respuesta con los datos obtenidos
         res.status(200).json(result.rows);
       } catch (error) {
-        console.error('Error al consultar la base de datos:', error);
-        res.status(500).json({ error: 'Error al consultar la base de datos' + error });
+        console.error('Error while consulting data base:', error);
+        res.status(500).json({ error: 'Error while consulting data base' + error });
       }
 }
 
@@ -58,7 +58,7 @@ export const DBAsscociate = async (associate: AssociateData,userId: string,res: 
         // Envía la respuesta con los datos obtenidos
         res.status(200).json(result.rows);
       } catch (error) {
-        console.error('Error al consultar la base de datos:', error);
-        res.status(500).json({ error: 'Error al consultar la base de datos' + error });
+        console.error('Error while consulting data base:', error);
+        res.status(500).json({ error: 'Error while consulting data base' + error });
       }
 }
