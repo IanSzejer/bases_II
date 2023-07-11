@@ -45,8 +45,6 @@ router.get('/', (_req,res) => {
 router.get('/user/:userId/:key_type/cbu', (req,res) =>{
     console.log('getCbu for: ', req.params.userId, req.params.key_type)
     DBGetUserCbu(req.params.userId,req.params.key_type,res)
-
-    // res.send(conexionApi.getCbu(req.params.userId,req.params.key))
 })
 
 /**

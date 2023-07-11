@@ -27,7 +27,7 @@ app.get('/ping', (_req,res) => {
     res.send('pong!')
 })
 
-app.use('/api/pix', router)
+app.use('/', router)
 
 app.use("/documentation",swaggerUi.serve, swaggerUi.setup(swaggerSetup))
 
