@@ -13,10 +13,11 @@ Este repositorio contiene la implementacion de un sistema de un banco central, e
 1-Dirigirse a codespaces con el repositorio.
 ```
 ```sh
-2- cd ./EntidadFinancieraApi_1
+2-  chmod +x ./EntidadFinancieraApi_1/setup.sh ./EntidadFinancieraApi_1/run.sh ./EntidadFinancieraApi_2/setup.sh  ./EntidadFinancieraApi_2/run.sh ./BancoCentralApi/setup.sh ./BancoCentralApi/run.sh
+    cd ./EntidadFinancieraApi_1
 ```
 ```sh
-3- ./setup.sh ( Si no tiene permisos hacer chmod +x ./setup.sh o con cualquier otro ejecutable)
+3- ./setup.sh 
 ```
 ```sh
 4- ./run.sh 
