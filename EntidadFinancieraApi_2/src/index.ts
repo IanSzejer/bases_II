@@ -11,7 +11,7 @@ export const pool = new Pool({
   host: 'localhost',
   database: 'postgres',
   password: 'mysecretpassword',
-  port: 5434, // Puerto predeterminado de PostgreSQL
+  port: 5435, // Puerto predeterminado de PostgreSQL
 });
 
 const app = express()
