@@ -15,8 +15,10 @@ export const pool = new Pool({
 });
 
 const app = express()
+const cors = require('cors');
 app.use(express.json())
 dotenv.config()
+app.use(cors());
 
 const PORT = 3000
 
