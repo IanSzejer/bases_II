@@ -18,14 +18,14 @@ const app = express()
 app.use(express.json())
 dotenv.config()
 
-const PORT = 3002
+const PORT = 3004
 
 app.get('/ping', (_req,res) => {
     console.log('someone ping here!')
     res.send('pong!')
 })
 
-app.use('/api/entity_1', router)
+app.use('/api/entity_2', router)
 
 app.use("/documentation",swaggerUi.serve, swaggerUi.setup(swaggerSetup))
 

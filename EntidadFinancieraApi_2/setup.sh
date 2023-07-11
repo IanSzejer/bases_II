@@ -22,7 +22,7 @@ else
     -e POSTGRES_USER="$POSTGRES_USER" \
     -e POSTGRES_PASSWORD="$POSTGRES_PASSWORD" \
     -e POSTGRES_DB="$POSTGRES_DB" \
-    -p 5434:5432 \
+    -p 5435:5432 \
     postgres
   sleep 10
 fi
@@ -32,9 +32,9 @@ sleep 5
   # Define the SQL statements to create the tables
   SQL_CREATE_TABLE_1="CREATE TABLE IF NOT EXISTS bank ( \
     userid serial NOT NULL PRIMARY KEY, \
-    cbu string NOT NULL unique, \
+    cbu text NOT NULL unique, \
     bankpassword text NOT NULL, \
-    balance numeric NOT NULL,
+    balance numeric NOT NULL
   );"
   
 
