@@ -31,7 +31,7 @@ sleep 5
 
   # Define the SQL statements to create the tables
   SQL_CREATE_TABLE_1="CREATE TABLE IF NOT EXISTS users ( \
-    userid seria NOT NULL PRIMARY KEY, \
+    userid serial NOT NULL PRIMARY KEY, \
     mail TEXT NOT NULL unique, \
     cuil varchar(11) NOT NULL unique, \
     phone_number text NOT NULL unique, \

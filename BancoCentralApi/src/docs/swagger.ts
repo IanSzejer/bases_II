@@ -8,7 +8,7 @@ const swaggerDefinition: OAS3Definition = {
   },
   servers: [
     {
-      url: "{protocol}://{host}",
+      url: `{protocol}://{host}`,
     },
   ],
   components:{
