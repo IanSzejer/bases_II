@@ -11,7 +11,7 @@ router.get('/', (_req,res) => {
 /**
  * Get track
  * @openapi
- * /user/:userId/:key_type/cbu:
+ * /user/{userId}/{key_type}/cbu:
  *    get:
  *      tags:
  *        - user
@@ -50,7 +50,7 @@ router.get('/user/:userId/:key_type/cbu', (req,res) =>{
 /**
  * Get track
  * @openapi
- * /user/:userId/:key_type/balance:
+ * /user/{userId}/{key_type}/balance:
  *    get:
  *      tags:
  *        - user
@@ -138,7 +138,7 @@ router.get('/user/find', (req,res) =>{
 /**
  * Get track
  * @openapi
- * /user/:userId/history:
+ * /user/{userId}/history:
  *    get:
  *      tags:
  *        - user
@@ -184,7 +184,7 @@ router.get('/user/:userId/history', (req,res) =>{
 /**
  * Get track
  * @openapi
- * /user/:userId/:key_type/history:
+ * /user/{userId}/{key_type}/history:
  *    get:
  *      tags:
  *        - user
@@ -250,9 +250,9 @@ router.get('/user/:userId/:key_type/history', (req,res) =>{
  *                      properties:
  *                          mail:          
  *                              type: string
- *                          CUIL:    
+ *                          cuil:    
  *                              type: integer
- *                          phonenum:    
+ *                          phoneNumber:    
  *                              type: integer
  *                          passport:    
  *                              type: string
@@ -283,7 +283,7 @@ router.post('/user/register', (req, res) => {
 /**
  * Get track
  * @openapi
- * /user/:userId/associate/:key_type:
+ * /user/{userId}/associate/{key_type}:
  *    post:
  *      tags:
  *        - user
@@ -295,14 +295,10 @@ router.post('/user/register', (req, res) => {
  *              application/json:
  *                  schema:
  *                      properties:
- *                          key:          
- *                              type: string
- *                          keyType:    
- *                              type: string
- *                          financeId:    
+ *                          cbu:    
  *                              type: integer
- *                          cbuInFinance:    
- *                              type: integer
+ *                          financialEntity:    
+ *                              type: string
  *      parameters:
  *          - in: path
  *            name: userId
@@ -323,6 +319,7 @@ router.post('/user/register', (req, res) => {
 router.post('/user/:userId/associate/:key_type', (req, res) => {
     // body -> key, keyType, financeId, cbuInFinance
     try{
+        console.log(req.params)
         const newAssociateDataKey = parseAssociateDataKey(req.body,req.params.key_type)
         DBAsscociate(newAssociateDataKey,req.params.userId,res)
     }catch(e: any){
@@ -346,7 +343,7 @@ router.post('/user/:userId/associate/:key_type', (req, res) => {
 /**
  * Get track
  * @openapi
- * /payment/user/:userId/:key_type:
+ * /payment/user/{userId}/{key_type}:
  *    post:
  *      tags:
  *        - payment

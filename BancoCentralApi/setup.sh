@@ -61,8 +61,8 @@ sleep 5
   SQL_INSERT_ACCOUNT_5="INSERT INTO users (mail, cuil, phone_number, passport, password) VALUES ('martin@gmail.com', '26012345678', '0123456789', 'E01234567', 'GuitarPlayer88')"
   SQL_INSERT_ACCOUNT_6="INSERT INTO users (mail, cuil, phone_number, passport, password) VALUES ('ariel@gmail.com', '23876543210', '8765432109', 'F87654321', 'CoffeeLover42')"
 
-  FINANCIAL_API_LINK1="..."
-  FINANCIAL_API_LINK2="..."
+  FINANCIAL_API_LINK1="https://ianszejer-upgraded-barnacle-wq95r4jr57c5p54-5434.preview.app.github.dev/"
+  FINANCIAL_API_LINK2="https://ianszejer-upgraded-barnacle-wq95r4jr57c5p54-5435.preview.app.github.dev/"
 
   SQL_INSERT_FINANCIAL_ENTITY_1="INSERT INTO finance_entity (name, url) VALUES ('Rio', '$API_LINK_1')"
   SQL_INSERT_FINANCIAL_ENTITY_1="INSERT INTO finance_entity (name, url) VALUES ('Naranja', '$API_LINK_2')"
