@@ -11,7 +11,7 @@ router.get('/', (_req,res) => {
 /**
  * Get track
  * @openapi
- * /user:
+ * /user/:userId/:key_type/cbu:
  *    get:
  *      tags:
  *        - user
@@ -34,7 +34,7 @@ router.get('/user/:userId/:key_type/cbu', (req,res) =>{
 /**
  * Get track
  * @openapi
- * /user:
+ * /user/:userId/:key_type/balance:
  *    get:
  *      tags:
  *        - user
@@ -56,7 +56,7 @@ router.get('/user/:userId/:key_type/balance', (req,res) =>{
 /**
  * Get track
  * @openapi
- * /user:
+ * /user/find:
  *    get:
  *      tags:
  *        - user
@@ -100,7 +100,7 @@ router.get('/user/find', (req,res) =>{
 /**
  * Get track
  * @openapi
- * /user:
+ * /user/:userId/history:
  *    get:
  *      tags:
  *        - user
@@ -118,6 +118,21 @@ router.get('/user/:userId/history', (req,res) =>{
     // res.send(conexionApi.getUserHistory(req.params.userId))
 })
 
+/**
+ * Get track
+ * @openapi
+ * /user/:userId/:key_type/history:
+ *    get:
+ *      tags:
+ *        - user
+ *      summary: "Listar historial de una llave"
+ *      description: Este endpoint sirve para listar el historial de transacciones de un usuario para una llave en particular
+ *      responses:
+ *        '200':
+ *          description: Retorna el objeto en la coleccion.
+ *        '422':
+ *          description: Error de validacion.
+ */
 router.get('/user/:userId/:key_type/history', (req,res) =>{
     console.log('getUserHistoryInKey: ', req.params.key_type)
     const key = parseKeyType(req.params.key_type)
@@ -125,6 +140,21 @@ router.get('/user/:userId/:key_type/history', (req,res) =>{
     // res.send(conexionApi.getUserHistoryInKey(req.params.userId, req.params.key))
 })
 
+/**
+ * Get track
+ * @openapi
+ * /user/register:
+ *    post:
+ *      tags:
+ *        - user
+ *      summary: "Registrar un usuario"
+ *      description: Este endpoint sirve para registrar un nuevo usuario al sistema
+ *      responses:
+ *        '200':
+ *          description: Retorna el objeto en la coleccion.
+ *        '422':
+ *          description: Error de validacion.
+ */
 router.post('/user/register', (req, res) => {
     // body -> mail, CUIL, phoneNum, passport, passwprd
     try{
@@ -139,6 +169,22 @@ router.post('/user/register', (req, res) => {
 
 // Si no tengo la key (ejemplo si no tengo cargado mi mail)
 // Si la tengo, key debe ser la misma a la ya registrada
+
+/**
+ * Get track
+ * @openapi
+ * /user/:userId/associate/:key_type:
+ *    post:
+ *      tags:
+ *        - user
+ *      summary: "Registrar un usuario"
+ *      description: Este endpoint sirve para registrar un nuevo usuario al sistema
+ *      responses:
+ *        '200':
+ *          description: Retorna el objeto en la coleccion.
+ *        '422':
+ *          description: Error de validacion.
+ */
 router.post('/user/:userId/associate/:key_type', (req, res) => {
     // body -> key, keyType, financeId, cbuInFinance
     try{
@@ -162,6 +208,21 @@ router.post('/user/:userId/associate/:key_type', (req, res) => {
 //     // res.send(conexionApi.associateUser(req.params.userId, newAssociateData))
 // })
 
+/**
+ * Get track
+ * @openapi
+ * /payment/user/:userId/:key_type:
+ *    post:
+ *      tags:
+ *        - payment
+ *      summary: "Registrar un usuario"
+ *      description: Este endpoint sirve para registrar un nuevo usuario al sistema
+ *      responses:
+ *        '200':
+ *          description: Retorna el objeto en la coleccion.
+ *        '422':
+ *          description: Error de validacion.
+ */
 router.post('/payment/user/:userId/:key_type', (req, res) => {
     // body -> toUserKey, toUserKeyType , amount
     try{
@@ -173,6 +234,21 @@ router.post('/payment/user/:userId/:key_type', (req, res) => {
     }    
 })
 
+/**
+ * Get track
+ * @openapi
+ * /user/login:
+ *    put:
+ *      tags:
+ *        - user
+ *      summary: "Loguear usuario"
+ *      description: Este endpoint sirve para ingresar a una cuenta del sistema
+ *      responses:
+ *        '200':
+ *          description: Retorna el objeto en la coleccion.
+ *        '422':
+ *          description: Error de validacion.
+ */
 router.put('/user/login', (req, res) => {
     // body -> mail, passwprd
     try{
