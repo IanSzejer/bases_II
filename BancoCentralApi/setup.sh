@@ -99,5 +99,3 @@ fi
 
 sleep 5
 
-docker exec -it $MONGO_CONTAINER_NAME mongosh $MONGO_DATABASE --eval "db.$COLLECTION_NAME.createIndex({ from.userIdFrom: 1, date: 1 })" --quiet
-docker exec -it $MONGO_CONTAINER_NAME mongosh $MONGO_DATABASE --eval "db.$COLLECTION_NAME.createIndex({ to.userIdTo: 1, date: 1 })" --quiet

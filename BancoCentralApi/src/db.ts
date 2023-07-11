@@ -25,6 +25,9 @@ const transactionSchema = new mongoose.Schema({
     status: String,
 });
 
+transactionSchema.index({ 'from.userIdFrom': 1, date:1  });
+transactionSchema.index({ 'to.userIdTo': 1, date:1  });
+
 // Crea el modelo basado en el esquema
 export const Transaction = mongoose.model('Transaction', transactionSchema);
 
