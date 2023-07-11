@@ -257,7 +257,7 @@ router.get('/user/:userId/:key_type/history', (req,res) =>{
  *                          phonenum:    
  *                              type: integer
  *                          passport:    
- *                              type: integer
+ *                              type: string
  *                          password:    
  *                              type: string
  *                             
