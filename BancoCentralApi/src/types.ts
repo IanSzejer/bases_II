@@ -24,7 +24,7 @@ export type LoginUser = Omit<User, 'id' | 'cuil' | 'phoneNumber' | 'passport'>
 export interface AssociateData {
     keyType: KeyTypes,
     cbu: number,
-    financialEntityId: number
+    financialEntityName: string
 }
 
 export interface BasicData {

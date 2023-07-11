@@ -57,7 +57,7 @@ export const parseAssociateDataKey = (object: any,keyType: string): AssociateDat
     const associateData: AssociateData = {
         keyType: parseKeyType(keyType),
         cbu: parseNumber(object.cbu),
-        financialEntityId: parseInt(object.financialEntity)
+        financialEntityName: parseString(object.financialEntity)
     }
     return associateData
 }
