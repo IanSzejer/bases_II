@@ -36,7 +36,7 @@ sleep 5
     cuil varchar(11) NOT NULL unique, \
     phone_number text NOT NULL unique, \
     passport varchar(9) NOT NULL unique, \
-    ima_key serial UNIQUE  \
+    ima_key serial UNIQUE,  \
     password TEXT NOT NULL \
   );"
   SQL_CREATE_TABLE_2="CREATE TABLE IF NOT EXISTS finance_entity ( \
