@@ -83,7 +83,7 @@ export const DBExtractAmount = async (cbu: string,amount: number,res: Response):
       // Realiza una consulta a la base de datos
       const client = await pool.connect();
       const result_balance = await client.query('SELECT balance FROM bank WHERE cbu = $1',[cbu]);
-      if (result_balance.rows[0].balance > amount){
+      if (result_balance.rows[0].balance >= amount){
         const result = await client.query('UPDATE bank SET balance = balance - $1 WHERE cbu = $2 RETURNING *',[amount,cbu]);
         client.release();
         if (result.rows.length === 0){
