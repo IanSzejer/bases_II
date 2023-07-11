@@ -83,10 +83,9 @@ export const parseLoginUserData = (object: any): LoginUser => {
 
 export const parsePaymentData = (body: any) : PaymentData =>{
     const newPayment: PaymentData = {
-        toUserKeyType: parseString(body.keyType),
-        toUserKey: parseStringOrNumber(body.key),
+        toUserKeyType: parseString(body.toUserKeyType),
+        toUserKey: parseStringOrNumber(body.toUserKey),
         amount: parseNumber(body.amount)
     }
-
     return newPayment
 }

@@ -319,7 +319,6 @@ router.post('/user/register', (req, res) => {
 router.post('/user/:userId/associate/:key_type', (req, res) => {
     // body -> key, keyType, financeId, cbuInFinance
     try{
-        console.log(req.params)
         const newAssociateDataKey = parseAssociateDataKey(req.body,req.params.key_type)
         DBAsscociate(newAssociateDataKey,req.params.userId,res)
     }catch(e: any){
@@ -387,7 +386,7 @@ router.post('/payment/user/:userId/:key_type', (req, res) => {
  * Get track
  * @openapi
  * /user/login:
- *    put:
+ *    x :
  *      tags:
  *        - user
  *      summary: "Loguear usuario"

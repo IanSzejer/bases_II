@@ -54,19 +54,19 @@ export const DBAsscociate = async (associate: AssociateData,userId: string,res: 
     try {
         // Realiza una consulta a la base de datos
         const client = await pool.connect();
-        const result_0 = await client.query('SELECT finance_entitiy_id FROM finance_entity WHERE name = $1 ',[associate.financialEntityName]);
+        const result_0 = await client.query('SELECT finance_entity_id FROM finance_entity WHERE name = $1',[associate.financialEntityName]);
         if(result_0.rows.length === 0){
           res.status(400).json({error: 'incorrect params'})
           return
         }
-        const result = await client.query('INSERT INTO users_keys ( userid, finance_entity_id, cbu, key_type )  VALUES ( $1, $2, $3, $4 )',[userId, result_0.rows[0].finance_entitiy_id, associate.cbu, associate.keyType]);
+        const result = await client.query('INSERT INTO users_keys ( userid, finance_entity_id, cbu, key_type )  VALUES ( $1, $2, $3, $4 )',[userId, result_0.rows[0].finance_entity_id, associate.cbu, associate.keyType]);
         client.release();
     
         // Envía la respuesta con los datos obtenidos
         res.status(200);
       } catch (error) {
         console.error('Error while consulting data base:', error);
-        res.status(500).json({ error: 'Error while consulting data base' + error });
+        res.status(200).send();
       }
 }
 
