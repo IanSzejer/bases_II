@@ -17,12 +17,30 @@ router.get('/', (_req,res) => {
  *        - user
  *      summary: "Listar cbu del usuario"
  *      description: Este endpoint es para listar el cbu de una key para un usuario en particular
- *      
+ *      parameters:
+ *          - in: path
+ *            name: userId
+ *            schema:
+ *              type: integer
+ *            description: Id del usuario
+ *          - in: path
+ *            name: key_type
+ *            schema:
+ *              type: string
+ *            description: Tipo de llave
  *      responses:
  *        '200':
- *          description: Retorna el objeto en la coleccion.
+ *          description: Se realizo correctamente.
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      properties:
+ *                          cbu:
+ *                              type: integer
+ *                  
  *        '422':
  *          description: Error de validacion.
+
  */
 router.get('/user/:userId/:key_type/cbu', (req,res) =>{
     console.log('getCbu for: ', req.params.userId, req.params.key_type)
@@ -40,11 +58,27 @@ router.get('/user/:userId/:key_type/cbu', (req,res) =>{
  *        - user
  *      summary: "Listar balance del usuario para una key"
  *      description: Este endpoint es para listar el cbu de un usuario particular 
- *      
+ *      parameters:
+ *          - in: path
+ *            name: userId
+ *            schema:
+ *              type: integer
+ *            description: Id del usuario
+ *          - in: path
+ *            name: key_type
+ *            schema:
+ *              type: string
+ *            description: Tipo de llave 
  *      responses:
  *        '200':
- *          description: Retorna el objeto en la coleccion.
- *        '422':
+ *          description: Se realizo correctamente.
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      properties:
+ *                          amount:
+ *                              type: integer
+ *        '400':
  *          description: Error de validacion.
  */
 router.get('/user/:userId/:key_type/balance', (req,res) =>{
@@ -63,27 +97,33 @@ router.get('/user/:userId/:key_type/balance', (req,res) =>{
  *      summary: "Buscar usuario por key"
  *      description: Este endpoint buscar un usuario en base a una llave que se tenga de el
  *      requestBody:
+ *           required: true
  *           content:
- *               'application/x-www-form-urlencoded':
- *               schema:
- *               properties:
- *                   keyType: 
- *                       description: type of key
- *                       type: string
- *                   key:
- *                       description: key
- *                       type: string
- *               required:
- *                   - keyType
- *                   - key    
+ *              application/json:
+ *                  schema:
+ *                      properties:
+ *                          keyType:          
+ *                              type: string
+ *                          key:    
+ *                              type: integer
  *      responses:
  *        '200':
  *          description: Retorna el objeto en la coleccion.
  *          content:
  *              application/json:
  *                  schema:
- *                      $ref: '#/components/schemas/user'
- *        '422':
+ *                      properties:
+ *                          mail:          
+ *                              type: string
+ *                          cuit:    
+ *                              type: integer
+ *                          phoneNumber:          
+ *                              type: integer
+ *                          cbu:    
+ *                              type: integer
+ *                          financeEntity:          
+ *                              type: string
+ *        '400':
  *          description: Error de validacion.
  */
 router.get('/user/find', (req,res) =>{
@@ -105,11 +145,36 @@ router.get('/user/find', (req,res) =>{
  *      tags:
  *        - user
  *      summary: "Listar historial"
- *      description: Este endpoint sirve para listar el historial de transacciones de un usuario  
+ *      description: Este endpoint sirve para listar el historial de transacciones de un usuario
+ *      parameters:
+ *          - in: path
+ *            name: userId
+ *            schema:
+ *              type: integer
+ *            description: Id del usuario
  *      responses:
  *        '200':
- *          description: Retorna el objeto en la coleccion.
- *        '422':
+ *          description: Se realizo correctamente.
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      properties:
+ *                          history:
+ *                              type: array
+ *                              items:
+ *                                  type: object
+ *                                  properties:
+ *                                      transactionID:
+ *                                          type: integer
+ *                                      userIdfrom:
+ *                                          type: integer
+ *                                      userIdto:
+ *                                          type: integer
+ *                                      date:
+ *                                          type: string
+ *                                      amount:
+ *                                          type: integer     
+ *        '400':
  *          description: Error de validacion.
  */
 router.get('/user/:userId/history', (req,res) =>{
@@ -127,10 +192,40 @@ router.get('/user/:userId/history', (req,res) =>{
  *        - user
  *      summary: "Listar historial de una llave"
  *      description: Este endpoint sirve para listar el historial de transacciones de un usuario para una llave en particular
+ *      parameters:
+ *          - in: path
+ *            name: userId
+ *            schema:
+ *              type: integer
+ *            description: Id del usuario
+ *          - in: path
+ *            name: key_type
+ *            schema:
+ *              type: string
+ *            description: Tipo de llave
  *      responses:
  *        '200':
- *          description: Retorna el objeto en la coleccion.
- *        '422':
+ *          description: Se realizo correctamente.
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      properties:
+ *                          history:
+ *                              type: array
+ *                              items:
+ *                                  type: object
+ *                                  properties:
+ *                                      transactionID:
+ *                                          type: integer
+ *                                      userIdfrom:
+ *                                          type: integer
+ *                                      userIdto:
+ *                                          type: integer
+ *                                      date:
+ *                                          type: string
+ *                                      amount:
+ *                                          type: integer
+ *        '400':
  *          description: Error de validacion.
  */
 router.get('/user/:userId/:key_type/history', (req,res) =>{
@@ -149,14 +244,31 @@ router.get('/user/:userId/:key_type/history', (req,res) =>{
  *        - user
  *      summary: "Registrar un usuario"
  *      description: Este endpoint sirve para registrar un nuevo usuario al sistema
+ *      requestBody:
+ *           required: true
+ *           content:
+ *              application/json:
+ *                  schema:
+ *                      properties:
+ *                          mail:          
+ *                              type: string
+ *                          CUIL:    
+ *                              type: integer
+ *                          phonenum:    
+ *                              type: integer
+ *                          passport:    
+ *                              type: integer
+ *                          password:    
+ *                              type: string
+ *                             
  *      responses:
  *        '200':
- *          description: Retorna el objeto en la coleccion.
- *        '422':
+ *          description: Se realizo correctamente.
+ *        '400':
  *          description: Error de validacion.
  */
 router.post('/user/register', (req, res) => {
-    // body -> mail, CUIL, phoneNum, passport, passwprd
+    // body -> mail, CUIL, phoneNum, passport, password
     try{
         const newUser = parseUserData(req.body)
         DBRegisterUser(newUser,res)
@@ -177,12 +289,37 @@ router.post('/user/register', (req, res) => {
  *    post:
  *      tags:
  *        - user
- *      summary: "Registrar un usuario"
- *      description: Este endpoint sirve para registrar un nuevo usuario al sistema
+ *      summary: "Asociar key"
+ *      description: Este endpoint sirve para asociar una nueva key a un usuario
+ *      requestBody:
+ *           required: true
+ *           content:
+ *              application/json:
+ *                  schema:
+ *                      properties:
+ *                          key:          
+ *                              type: string
+ *                          keyType:    
+ *                              type: string
+ *                          financeId:    
+ *                              type: integer
+ *                          cbuInFinance:    
+ *                              type: integer
+ *      parameters:
+ *          - in: path
+ *            name: userId
+ *            schema:
+ *              type: integer
+ *            description: Id del usuario
+ *          - in: path
+ *            name: key_type
+ *            schema:
+ *              type: string
+ *            description: Tipo de llave
  *      responses:
  *        '200':
- *          description: Retorna el objeto en la coleccion.
- *        '422':
+ *          description: Se realizo correctamente.
+ *        '400':
  *          description: Error de validacion.
  */
 router.post('/user/:userId/associate/:key_type', (req, res) => {
@@ -215,13 +352,30 @@ router.post('/user/:userId/associate/:key_type', (req, res) => {
  *    post:
  *      tags:
  *        - payment
- *      summary: "Registrar un usuario"
- *      description: Este endpoint sirve para registrar un nuevo usuario al sistema
+ *      summary: "Realizar pago"
+ *      description: Este endpoint sirve para realizar un pago de un usuario a otro
+ *      requestBody:
+ *           required: true
+ *           content:
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#/components/schemas/paymentData'
+ *      parameters:
+ *          - in: path
+ *            name: userId
+ *            schema:
+ *              type: integer
+ *            description: Id del usuario
+ *          - in: path
+ *            name: key_type
+ *            schema:
+ *              type: string
+ *            description: Tipo de llave
  *      responses:
  *        '200':
- *          description: Retorna el objeto en la coleccion.
- *        '422':
- *          description: Error de validacion.
+ *          description: Se realizo correctamente.
+ *        '400':
+ *          description: bad param type.
  */
 router.post('/payment/user/:userId/:key_type', (req, res) => {
     // body -> toUserKey, toUserKeyType , amount
@@ -243,14 +397,24 @@ router.post('/payment/user/:userId/:key_type', (req, res) => {
  *        - user
  *      summary: "Loguear usuario"
  *      description: Este endpoint sirve para ingresar a una cuenta del sistema
+ *       requestBody:
+ *           required: true
+ *           content:
+ *              application/json:
+ *                  schema:
+ *                      properties:
+ *                          mail:          
+ *                              type: string
+ *                          password:    
+ *                              type: string
  *      responses:
  *        '200':
- *          description: Retorna el objeto en la coleccion.
- *        '422':
+ *          description: Correcto login.
+ *        '400':
  *          description: Error de validacion.
  */
 router.put('/user/login', (req, res) => {
-    // body -> mail, passwprd
+    // body -> mail, password
     try{
         const newPayment = parseLoginUserData(req.body)
         // res.send(conexionApi.generateIMAKey(req.body))
