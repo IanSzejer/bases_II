@@ -40,7 +40,7 @@ sleep 5
     password TEXT NOT NULL \
   );"
   SQL_CREATE_TABLE_2="CREATE TABLE IF NOT EXISTS finance_entity ( \
-    finance_entitiy_id serial NOT NULL PRIMARY KEY, \
+    finance_entity_id serial NOT NULL PRIMARY KEY, \
     name TEXT NOT NULL unique, \
     url TEXT NOT NULL \
   );"
