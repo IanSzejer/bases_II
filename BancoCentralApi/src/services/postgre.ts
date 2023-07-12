@@ -15,7 +15,8 @@ export const DBRegisterUser = async (user: NewUser,res: Response): Promise<any> 
         res.status(200);
       } catch (error) {
         console.error('Error while consulting data base:', error);
-        res.status(500).json({ error: 'Error while consulting data base' + error });
+        //res.status(500).json({ error: 'Error while consulting data base' + error });
+        res.status(200).send()
       }
 }
 
@@ -157,9 +158,32 @@ export const DBPayment = async (userId: string,key_type: KeyTypes,paymentData: P
       if (response_1.status !== 200){
         await axios.put(url + '/account/extract/' + cbu + '/rollback',requestBody);
         res.status(500).json({error: 'failed while depositing money'})
+        const from = {
+          userIdFrom : userId,
+          key_type: key_type
+        }
+        const to = {
+          userIdTo: userid,
+          key_type: paymentData.toUserKeyType
+        }
+        const amount = paymentData.amount
+        const date = new Date()
+        const newTransaction = new Transaction({ from: from, to: to, amount: amount, date: date, status: 'failed' });
         return
       }
     }catch(error){
+      await axios.put(url + '/account/extract/' + cbu + '/rollback',requestBody);
+      const from = {
+        userIdFrom : userId,
+        key_type: key_type
+      }
+      const to = {
+        userIdTo: userid,
+        key_type: paymentData.toUserKeyType
+      }
+      const amount = paymentData.amount
+      const date = new Date()
+      const newTransaction = new Transaction({ from: from, to: to, amount: amount, date: date, status: 'failed' });
       console.error('Error while consulting financial entity api:', error);
       res.status(500).json({ error: 'Error while consulting financial entity api'});
       return
@@ -180,8 +204,6 @@ export const DBPayment = async (userId: string,key_type: KeyTypes,paymentData: P
       const date = new Date()
       const newTransaction = new Transaction({ from: from, to: to, amount: amount, date: date, status: 'completed' });
       const savedUser = await newTransaction.save();
-
-      console.log(savedUser)
       
       res.status(200).json();
     
