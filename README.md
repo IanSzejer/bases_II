@@ -8,6 +8,7 @@ Este repositorio contiene la implementacion de un sistema de un banco central, e
  - Las bases de las entidades finacieras fueron realizadas en postgres..
 
 ## Uso
+Recordar si se cambia el code space, modificar las variables FINANCIAL_API_LINK1 en /BancoCentralApi/setup.sh para que matchee
 
 ```sh
 1-Dirigirse a codespaces con el repositorio.
