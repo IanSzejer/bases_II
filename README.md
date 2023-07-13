@@ -39,13 +39,24 @@ Recordar si se cambia el code space, modificar las variables FINANCIAL_API_LINK1
 9- cd ..
 ```
 ```sh
-10- cd ./BancoCentralApi
+10- Debe ahora ingresar ahora a ./BancoCentralApi/setup.sh y modificar la variable:
+     FINANCIAL_API_LINK1, poniendo de contenido la url que obtiene al ingresar a puerto y copiar la url del programa corriendo en el puerto 3002
+     FINANCIAL_API_LINK2, poniendo de contenido la url que obtiene al ingresar a puerto y copiar la url del programa corriendo en el puerto 3004
 ```
 ```sh
-11- ./setup.sh 
+11- Debe ahora ingresar ahora a ./BancoCentralApi/src/docs/swagger.ts y en la variable url: poner la misma url que se copio antes en el paso 10, pero cambiando el numero de puerto (esta embebido en la url) por 3000
 ```
 ```sh
-12- ./run.sh 
+12- cd ./BancoCentralApi
+```
+```sh
+13- ./setup.sh 
+```
+```sh
+14- ./run.sh 
 ```
 
-Ahora puede dirigirse a .... e interacturar mediante el swagger con el sistema
+```sh
+15- Marcar todos los puertos como publicos en la tabla de puertos
+```
+Ahora puede dirigirse a puertos, precionar ver en el navegador en el puerto 3000. Una vez alli agregar /documentation y  podra interacturar mediante el swagger con el sistema
