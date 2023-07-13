@@ -27,7 +27,7 @@ Recordar si se cambia el code space, modificar las variables FINANCIAL_API_LINK1
 5- cd ..
 ```
 ```sh
-6- cd ./EntidadFinancieraApi_1
+6- cd ./EntidadFinancieraApi_2
 ```
 ```sh
 7- ./setup.sh 
