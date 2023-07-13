@@ -24,7 +24,7 @@ Recordar si se cambia el code space, modificar las variables FINANCIAL_API_LINK1
 4- ./run.sh 
 ```
 ```sh
-5- cd ..
+5- Abrir una terminal nueva
 ```
 ```sh
 6- cd ./EntidadFinancieraApi_2
@@ -36,7 +36,7 @@ Recordar si se cambia el code space, modificar las variables FINANCIAL_API_LINK1
 8- ./run.sh 
 ```
 ```sh
-9- cd ..
+9- Abrir una terminal nueva
 ```
 ```sh
 10- Debe ahora ingresar ahora a ./BancoCentralApi/setup.sh y modificar la variable:
