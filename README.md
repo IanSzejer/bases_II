@@ -1,10 +1,10 @@
 #  Trabajo practico bases de datos II
 
-## Introudcción
+## Introducción
 
 Este repositorio contiene la implementacion de un sistema de un banco central, en conjunto con dos entidades financieras:
- - La ejecucion se hace mediante la api del Banco central. la cual interactua con las otras dos.
- - El Banco central conciste de una Api, una base en Postgres con tres tablas y una base en MongoDb para registrar el historial de transacciones.
+ - La ejecucion se hace mediante la API del Banco central. la cual interactua con las otras dos.
+ - El Banco central conciste de una API, una base en Postgres con tres tablas y una base en MongoDb para registrar el historial de transacciones.
  - Las bases de las entidades finacieras fueron realizadas en postgres..
 
 ## Uso
