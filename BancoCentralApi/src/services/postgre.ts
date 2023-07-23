@@ -71,8 +71,8 @@ export const DBAsscociate = async (associate: AssociateData,userId: string,res: 
             res.status(500).json({error: 'failed while setting cbu'})
           }
         }catch(error){
-          console.error('Error while setting cbu entity api:', error);
-          res.status(500).json({ error: 'Error while setting cbu entity api'});
+          console.error('Error while consulting finance entity api:', error);
+          res.status(500).json({ error: 'Error while consulting finance entity api'});
           return
         }
 
@@ -110,6 +110,7 @@ export const DBPayment = async (userId: string,key_type: KeyTypes,paymentData: P
   }
       //First Financial entity request
       const requestBody = {amount: paymentData.amount};
+  
     try{
       const response = await axios.put(url + '/account/extract/' + cbu,requestBody);
       const responseData = response.data;
@@ -130,7 +131,7 @@ export const DBPayment = async (userId: string,key_type: KeyTypes,paymentData: P
       url2 = result_1.rows[0].url
       cbu2 = result_1.rows[0].cbu
       userid = result_1.rows[0].userid
-      if( result_1.rows.length === 0){
+      if(result_1.rows.length === 0){
         await axios.put(url + '/account/extract/' + cbu + '/rollback',requestBody);
         res.status(400).json({error: 'incorrect to params'}) 
         const from = {
@@ -169,11 +170,24 @@ export const DBPayment = async (userId: string,key_type: KeyTypes,paymentData: P
 
       
       //Second Financial entity request
+      try{
+        const response = await axios.put(url2 + '/account/deposit/' + cbu2,requestBody);
+        const responseData = response.data;
+  
+        if (response.status !== 200){
+          res.status(500).json({error: 'failed while depositing money'})
+        }
+      }catch(error){
+        console.error('Error while consulting financial entity api:', error);
+        res.status(500).json({ error: 'Error while consulting financial entity api'});
+        return
+      }
+
     try{
       const response_1 = await axios.put(url2 + '/account/deposit/' + cbu2,requestBody);
 
       if (response_1.status !== 200){
-        await axios.put(url + '/account/extract/' + cbu + '/rollback',requestBody);
+        await axios.put(url + '/account/deposit/' + cbu + '/rollback',requestBody);
         res.status(500).json({error: 'failed while depositing money'})
         const from = {
           userIdFrom : userId,
@@ -189,7 +203,7 @@ export const DBPayment = async (userId: string,key_type: KeyTypes,paymentData: P
         return
       }
     }catch(error){
-      await axios.put(url + '/account/extract/' + cbu + '/rollback',requestBody);
+      await axios.put(url + '/account/deposit/' + cbu + '/rollback',requestBody);
       const from = {
         userIdFrom : userId,
         key_type: key_type
@@ -233,21 +247,21 @@ export const DBGetUserBalance = async (userId: string,key_type: KeyTypes ,res: R
 
       const result = await client.query('SELECT url,cbu FROM finance_entity NATURAL JOIN users_keys WHERE userid = $1 and key_type = $2',[userId, key_type ]);
       
-      if( result.rows.length === 0){
+      if(result.rows.length === 0){
         res.status(400).json({error: 'Not found cbu associated'})
         return
       }
 
       try{
-        const response = await axios.get(result.rows[0].url + '/account/exists/' + result.rows[0].cbu);
+        const response = await axios.get(result.rows[0].url + '/account/exists/' + result.rows[0].cbu)
         const responseData = response.data;
   
         if (response.status !== 200){
           res.status(500).json({error: 'failed while getting cbu balance'})
         }
       }catch(error){
-        console.error('Error while getting cbu balance entity api:', error);
-        res.status(500).json({ error: 'Error while getting cbu balance entity api'});
+        console.error('Error while consulting finance entity api:', error);
+        res.status(500).json({ error: 'Error while consulting finance entity api'});
         return
       }
       
