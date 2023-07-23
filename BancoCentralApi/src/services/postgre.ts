@@ -57,11 +57,26 @@ export const DBAsscociate = async (associate: AssociateData,userId: string,res: 
     try {
         // Realiza una consulta a la base de datos
         const client = await pool.connect();
-        const result_0 = await client.query('SELECT finance_entity_id FROM finance_entity WHERE name = $1',[associate.financialEntityName]);
+        const result_0 = await client.query('SELECT finance_entity_id, url FROM finance_entity WHERE name = $1',[associate.financialEntityName]);
         if(result_0.rows.length === 0){
           res.status(400).json({error: 'incorrect params'})
           return
         }
+
+        try{
+          const response = await axios.get(result_0.rows[0].url + '/account/exists/' + associate.cbu);
+          const responseData = response.data;
+    
+          if (response.status !== 200){
+            res.status(500).json({error: 'failed while setting cbu'})
+          }
+        }catch(error){
+          console.error('Error while setting cbu entity api:', error);
+          res.status(500).json({ error: 'Error while setting cbu entity api'});
+          return
+        }
+
+        
         const result = await client.query('INSERT INTO users_keys ( userid, finance_entity_id, cbu, key_type )  VALUES ( $1, $2, $3, $4 )',[userId, result_0.rows[0].finance_entity_id, associate.cbu, associate.keyType]);
         client.release();
     
@@ -219,9 +234,23 @@ export const DBGetUserBalance = async (userId: string,key_type: KeyTypes ,res: R
       const result = await client.query('SELECT url,cbu FROM finance_entity NATURAL JOIN users_keys WHERE userid = $1 and key_type = $2',[userId, key_type ]);
       
       if( result.rows.length === 0){
-        res.status(400).json({error: 'incorrect from params'})
+        res.status(400).json({error: 'Not found cbu associated'})
         return
       }
+
+      try{
+        const response = await axios.get(result.rows[0].url + '/account/exists/' + result.rows[0].cbu);
+        const responseData = response.data;
+  
+        if (response.status !== 200){
+          res.status(500).json({error: 'failed while getting cbu balance'})
+        }
+      }catch(error){
+        console.error('Error while getting cbu balance entity api:', error);
+        res.status(500).json({ error: 'Error while getting cbu balance entity api'});
+        return
+      }
+      
       
       const response = await axios.get(result.rows[0].url + '/account/' + result.rows[0].cbu + '/balance');
       
