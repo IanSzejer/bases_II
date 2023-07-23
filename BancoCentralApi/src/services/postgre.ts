@@ -1,5 +1,5 @@
 import { pool } from "../index";
-import { AssociateData, BasicData, KeyTypes, NewUser, PaymentData } from "../types";
+import { AssociateData, BasicData, KeyTypes, NewUser, PaymentData, User } from "../types";
 import { Response } from 'express';
 import axios from 'axios';
 import { Transaction } from "../db";
@@ -333,4 +333,30 @@ export const DBGetUserHistoryBykey = async (userId: string, key_type: KeyTypes, 
       console.error('Error while consulting data base:', error);
       res.status(500).json({ error: 'Error while consulting data base' });
     }
+}
+
+export const DBUserAuth=async (mail:string,password:string,req:string,res:Response,next:NextFunction): Promise<any> =>{
+  try{
+    const client = await pool.connect();
+    const result= await client.query('SELECT password,userid from users where mail = $1',[mail]) 
+    client.release();
+    if(result.rowCount==0){
+      res.status(400).json({ error: 'No user with that mail found' });
+      return
+    }
+    const dbUserId=result.rows[0].userid
+    const dbPass=result.rows[0].password
+    if(dbPass!=password){
+      res.status(400).send('Wrong password');
+      return
+    }
+    if(dbUserId!=req){
+      res.status(401).send('UserId belongs to other user, your id is '+dbUserId);
+      return
+    }
+    next()
+  } catch (error) {
+    res.status(500).send('DB error');
+    return
+  }
 }

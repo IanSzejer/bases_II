@@ -16,6 +16,8 @@ export interface User {
     id: number
 }
 
+
+
 export type NewUser = Omit<User, 'id'>
 
 export type LoginUser = Omit<User, 'id' | 'cuil' | 'phoneNumber' | 'passport'>

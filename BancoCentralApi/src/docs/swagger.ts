@@ -12,6 +12,14 @@ const swaggerDefinition: OAS3Definition = {
     },
   ],
   components:{
+    securitySchemes: {
+      basicAuth: {
+        type: "http",
+        scheme: "basic",
+        name: "basicAuth",
+        in: "header",
+      },
+    },
     schemas: {
         user: {
           type: "object",

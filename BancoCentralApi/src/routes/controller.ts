@@ -1,6 +1,6 @@
-import express from "express"
+import express, { NextFunction, Response } from "express"
 import { parseUserData, parsePaymentData, parseAssociateDataKey, parseFindData, parseLoginUserData, parseKeyType } from "../services/parse"
-import { DBAsscociate, DBFindUser, DBGetUserBalance, DBGetUserCbu, DBGetUserHistory, DBGetUserHistoryBykey, DBPayment, DBRegisterUser } from "../services/postgre"
+import { DBAsscociate, DBFindUser, DBGetUserBalance, DBGetUserCbu, DBGetUserHistory, DBGetUserHistoryBykey, DBPayment, DBRegisterUser, DBUserAuth } from "../services/postgre"
 
 const router = express.Router()
 
@@ -52,6 +52,8 @@ router.get('/user/:userId/:key_type/cbu', (req,res) =>{
  * @openapi
  * /user/{userId}/{key_type}/balance:
  *    get:
+ *      security:
+ *        - basicAuth: [] 
  *      tags:
  *        - user
  *      summary: "Listar balance del usuario para una key"
@@ -135,6 +137,8 @@ router.get('/user/find/:key_type/:key', (req,res) =>{
  * @openapi
  * /user/{userId}/history:
  *    get:
+ *      security:
+ *        - basicAuth: [] 
  *      tags:
  *        - user
  *      summary: "Listar historial"
@@ -181,6 +185,8 @@ router.get('/user/:userId/history', (req,res) =>{
  * @openapi
  * /user/{userId}/{key_type}/history:
  *    get:
+*      security:
+ *        - basicAuth: [] 
  *      tags:
  *        - user
  *      summary: "Listar historial de una llave"
@@ -280,6 +286,8 @@ router.post('/user/register', (req, res) => {
  * @openapi
  * /user/{userId}/associate/{key_type}:
  *    post:
+ *      security:
+ *        - basicAuth: [] 
  *      tags:
  *        - user
  *      summary: "Asociar key"
@@ -339,6 +347,8 @@ router.post('/user/:userId/associate/:key_type', (req, res) => {
  * @openapi
  * /payment/user/{userId}/{key_type}:
  *    post:
+ *      security:
+ *        - basicAuth: [] 
  *      tags:
  *        - payment
  *      summary: "Realizar pago"
@@ -376,42 +386,5 @@ router.post('/payment/user/:userId/:key_type', (req, res) => {
         res.status(400).send({error: 'Error de tipos de parametros userId o key_type(mail, passport, cuil, phoneNumber,pixKey'})
     }    
 })
-
-// /**
-//  * Get track
-//  * @openapi
-//  * /user/login:
-//  *    x :
-//  *      tags:
-//  *        - user
-//  *      summary: "Loguear usuario"
-//  *      description: Este endpoint sirve para ingresar a una cuenta del sistema
-//  *       requestBody:
-//  *           required: true
-//  *           content:
-//  *              application/json:
-//  *                  schema:
-//  *                      properties:
-//  *                          mail:          
-//  *                              type: string
-//  *                          password:    
-//  *                              type: string
-//  *      responses:
-//  *        '200':
-//  *          description: Correcto login.
-//  *        '400':
-//  *          description: Error de validacion.
-//  */
-// router.put('/user/login', (req, res) => {
-//     // body -> mail, password
-//     try{
-//         const newPayment = parseLoginUserData(req.body)
-//         // res.send(conexionApi.generateIMAKey(req.body))
-//     }catch(e: any){
-//         res.status(400).send(e.message)
-//     }
-//     console.log('PUT parameter received are: ',req.body)
-//     // conexionApi.login(req.body)
-// })
 
 export default router
