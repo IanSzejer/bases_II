@@ -9,10 +9,12 @@ export const DBRegisterUser = async (user: NewUser,res: Response): Promise<any> 
         // Realiza una consulta a la base de datos
         const client = await pool.connect();
         const result = await client.query('INSERT INTO users ( mail,cuil,phone_number,passport,password )  VALUES ( $1, $2, $3, $4, $5 )',[user.mail,user.cuil,user.phoneNumber,user.passport,user.password]);
+        const user_info = await client.query('SELECT * FROM users WHERE cuil = $1',[user.cuil]);
+
         client.release();
     
         // Envía la respuesta con los datos obtenidos
-        res.status(200);
+        res.status(200).json(user_info.rows);
       } catch (error) {
         console.error('Error while consulting data base:', error);
         //res.status(500).json({ error: 'Error while consulting data base' + error });
