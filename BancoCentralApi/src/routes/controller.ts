@@ -5,7 +5,7 @@ import { DBAsscociate, DBFindUser, DBGetUserBalance, DBGetUserCbu, DBGetUserHist
 const router = express.Router()
 
 router.get('/', (_req,res) => {
-    res.send('Pepe')
+    res.send('IMA')
 })
 
 /**
@@ -272,7 +272,7 @@ router.post('/user/register', (req, res) => {
         DBRegisterUser(newUser,res)
         // res.send(conexionApi.generateIMAKey(req.body))
     }catch(error){
-        res.status(400).send(error)
+        res.status(400).send({error: "Error al registrar el usuario"})
     }
     
 })
@@ -378,7 +378,7 @@ router.post('/payment/user/:userId/:key_type', (req, res) => {
         const key = parseKeyType(req.params.key_type)  
         DBPayment(req.params.userId,key,newPayment,res)
     }catch(error){
-        res.status(400).send({error: 'bad param type'})
+        res.status(400).send({error: 'Error de tipos de parametros userId o key_type(mail, passport, cuil, phoneNumber,pixKey'})
     }    
 })
 

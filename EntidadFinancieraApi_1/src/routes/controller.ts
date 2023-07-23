@@ -5,7 +5,7 @@ import { DBCheckAccountExistance, DBDepositAmount, DBExtractAmount, DBGetAccount
 const router = express.Router()
 
 router.get('/', (_req,res) => {
-    res.send('Pepe')
+    res.send('IMA')
 })
 
 /**

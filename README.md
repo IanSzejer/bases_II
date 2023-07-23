@@ -59,4 +59,4 @@ Recordar si se cambia el code space, modificar las variables FINANCIAL_API_LINK1
 ```sh
 15- Marcar todos los puertos como publicos en la tabla de puertos
 ```
-Ahora puede dirigirse a puertos, precionar ver en el navegador en el puerto 3000. Una vez alli agregar /documentation y  podra interacturar mediante el swagger con el sistema
+Ahora puede dirigirse a puertos, presionar ver en el navegador en el puerto 3000. Una vez alli agregar /documentation y  podra interacturar mediante el swagger con el sistema

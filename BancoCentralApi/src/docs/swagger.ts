@@ -8,7 +8,7 @@ const swaggerDefinition: OAS3Definition = {
   },
   servers: [
     {
-      url: "https://ianszejer-upgraded-barnacle-wq95r4jr57c5p54-3000.preview.app.github.dev",
+      url: "https://aortu22-cautious-space-garbanzo-7xvpxp74p953pq4q-3000.preview.app.github.dev",
     },
   ],
   components:{
