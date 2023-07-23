@@ -382,41 +382,41 @@ router.post('/payment/user/:userId/:key_type', (req, res) => {
     }    
 })
 
-/**
- * Get track
- * @openapi
- * /user/login:
- *    x :
- *      tags:
- *        - user
- *      summary: "Loguear usuario"
- *      description: Este endpoint sirve para ingresar a una cuenta del sistema
- *       requestBody:
- *           required: true
- *           content:
- *              application/json:
- *                  schema:
- *                      properties:
- *                          mail:          
- *                              type: string
- *                          password:    
- *                              type: string
- *      responses:
- *        '200':
- *          description: Correcto login.
- *        '400':
- *          description: Error de validacion.
- */
-router.put('/user/login', (req, res) => {
-    // body -> mail, password
-    try{
-        const newPayment = parseLoginUserData(req.body)
-        // res.send(conexionApi.generateIMAKey(req.body))
-    }catch(e: any){
-        res.status(400).send(e.message)
-    }
-    console.log('PUT parameter received are: ',req.body)
-    // conexionApi.login(req.body)
-})
+// /**
+//  * Get track
+//  * @openapi
+//  * /user/login:
+//  *    x :
+//  *      tags:
+//  *        - user
+//  *      summary: "Loguear usuario"
+//  *      description: Este endpoint sirve para ingresar a una cuenta del sistema
+//  *       requestBody:
+//  *           required: true
+//  *           content:
+//  *              application/json:
+//  *                  schema:
+//  *                      properties:
+//  *                          mail:          
+//  *                              type: string
+//  *                          password:    
+//  *                              type: string
+//  *      responses:
+//  *        '200':
+//  *          description: Correcto login.
+//  *        '400':
+//  *          description: Error de validacion.
+//  */
+// router.put('/user/login', (req, res) => {
+//     // body -> mail, password
+//     try{
+//         const newPayment = parseLoginUserData(req.body)
+//         // res.send(conexionApi.generateIMAKey(req.body))
+//     }catch(e: any){
+//         res.status(400).send(e.message)
+//     }
+//     console.log('PUT parameter received are: ',req.body)
+//     // conexionApi.login(req.body)
+// })
 
 export default router
