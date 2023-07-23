@@ -17,8 +17,8 @@ export const DBRegisterUser = async (user: NewUser,res: Response): Promise<any> 
         res.status(200).json(user_info.rows);
       } catch (error) {
         console.error('Error while consulting data base:', error);
-        //res.status(500).json({ error: 'Error while consulting data base' + error });
-        res.status(200).send()
+        res.status(500).json({ error: 'Error while consulting data base' + error });
+        // res.status(200).send()
       }
 }
 
@@ -235,7 +235,7 @@ export const DBGetUserBalance = async (userId: string,key_type: KeyTypes ,res: R
       }
     } catch (error) {
       console.error('Error while consulting data base:', error);
-      res.status(500).json({ error: 'Error while consulting data base' + error });
+      res.status(500).json({ error: 'Error while consulting data base ' + error });
     }
 }
 
