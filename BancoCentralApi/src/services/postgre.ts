@@ -42,11 +42,18 @@ export const DBFindUser = async (findData: BasicData,res: Response): Promise<any
     try {
         // Realiza una consulta a la base de datos
         const client = await pool.connect();
-        const result = await client.query('SELECT mail,cbu FROM users_keys NATURAL JOIN users WHERE ' + findData.keyType + ' = $1',[findData.key.value]);
+        const result = await client.query('SELECT finance_entity_id,cbu FROM users_keys NATURAL JOIN users WHERE ' + findData.keyType + ' = $1',[findData.key.value]);
+        if(result.rows.length === 0){
+          res.status(400).json({error: 'There is no information available for those params'})
+          return
+        }
+        const result_finance = await client.query('SELECT name FROM finance_entity WHERE finance_entity_id = $1',[result.rows[0].finance_entity_id]);
+
         client.release();
        
         // Envía la respuesta con los datos obtenidos
-        res.status(200).json(result.rows);
+        res.status(200).json({'finance_entity_name': result_finance.rows[0].name,
+        'cbu': result.rows[0].cbu});
       } catch (error) {
         console.error('Error while consulting data base:', error);
         res.status(500).json({ error: 'Error while consulting data base' + error });

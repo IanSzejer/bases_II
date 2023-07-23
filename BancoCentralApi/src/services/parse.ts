@@ -14,12 +14,12 @@ const parseNumber = (arg: any): number => {
     return arg
 }
 
-const parseStringOrNumber = (arg: any): NumberOrString => {
-    if (typeof arg !== 'number' && typeof arg !== 'string'){
-        throw new Error('Incorrect argument wasn\'t a string or number')
+const parseStringOrNumber = (key: string, key_type: string): NumberOrString => {
+    if (typeof key !== 'string'){
+        throw new Error('Incorrect argument wasn\'t a string')
     }
     const numOrStr : NumberOrString = {
-        value: arg
+        value: key_type == 'cuil' || key_type == "phone_number" ? Number(key) : key
     }
     return numOrStr
 }
@@ -65,7 +65,7 @@ export const parseAssociateDataKey = (object: any,keyType: string): AssociateDat
 
 export const parseFindData = (object: any): BasicData => {
     const basicData: BasicData = {
-        key: parseStringOrNumber(object.key),
+        key: parseStringOrNumber(object.key, object.key_type),
         keyType: parseKeyType(object.key_type)
     }
     
@@ -84,7 +84,7 @@ export const parseLoginUserData = (object: any): LoginUser => {
 export const parsePaymentData = (body: any) : PaymentData =>{
     const newPayment: PaymentData = {
         toUserKeyType: parseString(body.toUserKeyType),
-        toUserKey: parseStringOrNumber(body.toUserKey),
+        toUserKey: parseStringOrNumber(body.toUserKey, body.toUserKeyType),
         amount: parseNumber(body.amount)
     }
     return newPayment

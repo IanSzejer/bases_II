@@ -88,22 +88,23 @@ router.get('/user/:userId/:key_type/balance', (req,res) =>{
 /**
  * Get track
  * @openapi
- * /user/find:
+ * /user/find/{key_type}/{key}:
  *    get:
  *      tags:
  *        - user
  *      summary: "Buscar usuario por key"
  *      description: Este endpoint buscar un usuario en base a una llave que se tenga de el
- *      requestBody:
- *           required: true
- *           content:
- *              application/json:
- *                  schema:
- *                      properties:
- *                          keyType:          
- *                              type: string
- *                          key:    
- *                              type: integer
+ *      parameters:
+ *          - in: path
+ *            name: key_type
+ *            schema:
+ *              type: string
+ *            description: Tipo de clave
+ *          - in: path
+ *            name: key
+ *            schema:
+ *              type: string
+ *            description: Valor de clave
  *      responses:
  *        '200':
  *          description: Retorna el objeto en la coleccion.
@@ -111,12 +112,6 @@ router.get('/user/:userId/:key_type/balance', (req,res) =>{
  *              application/json:
  *                  schema:
  *                      properties:
- *                          mail:          
- *                              type: string
- *                          cuit:    
- *                              type: integer
- *                          phoneNumber:          
- *                              type: integer
  *                          cbu:    
  *                              type: integer
  *                          financeEntity:          
@@ -124,10 +119,10 @@ router.get('/user/:userId/:key_type/balance', (req,res) =>{
  *        '400':
  *          description: Error de validacion.
  */
-router.get('/user/find', (req,res) =>{
+router.get('/user/find/:key_type/:key', (req,res) =>{
     // body -> keyType, key
     try{
-        const findData = parseFindData(req.body)
+        const findData = parseFindData(req.params)
         DBFindUser(findData,res)
     }catch(e: any){
         res.status(400).send(e.message)
