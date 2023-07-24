@@ -34,12 +34,9 @@ export const DBGetUserCbu = async (userId: string,key_type: string,res: Response
         }
         const result_finance = await client.query('SELECT name FROM finance_entity WHERE finance_entity_id = $1',[result.rows[0].finance_entity_id]);
         client.release();
-
     
         // Envía la respuesta con los datos obtenidos
-        res.status(200).json({'finance_entity_name': result_finance.rows[0].name,
-        'cbu': result.rows[0].cbu});
-        // res.status(200).json(result.rows);
+        res.status(200).json({'finance_entity_name': result_finance.rows[0].name, 'cbu': result.rows[0].cbu});
       } catch (error) {
         console.error('Error while consulting data base:', error);
         res.status(500).json({ error: 'Error while consulting data base' + error });
@@ -359,7 +356,7 @@ export const DBUserAuth=async (mail:string,password:string,req:string,res:Respon
       return
     }
     if(dbUserId!=req){
-      res.status(401).send('UserId belongs to other user, your id is '+dbUserId);
+      res.status(401).send('UserId belongs to other user, your id is '+ dbUserId);
       return
     }
     next()
