@@ -26,7 +26,7 @@ const parseStringOrNumber = (key: string, key_type: string): NumberOrString => {
 
 export const parseKeyType = (arg: string): KeyTypes => {
     if (!Object.values(KeyTypes).includes(arg as KeyTypes)){
-        throw new Error('Incorrect argument wasn\'t a key type')
+        throw new Error('Incorrect argument wasn\'t a valid key type')
     }
     return arg as KeyTypes
 }
