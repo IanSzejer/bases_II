@@ -12,7 +12,6 @@ export const DBGetAccountBalance = async (cbu: string,res: Response): Promise<an
       }else{
         res.status(200).json(result.rows);
       }
-     
       
     } catch (error) {
       console.error('Error while consulting data base:', error);
@@ -32,7 +31,6 @@ export const DBCheckAccountExistance = async (cbu: string,res: Response): Promis
       }else{
         res.status(200).json(result.rows);
       }
-     
       
     } catch (error) {
       console.error('Error while consulting data base:', error);

@@ -76,7 +76,7 @@ router.get('/user/:userId/:key_type/cbu', (req,res) =>{
  *              application/json:
  *                  schema:
  *                      properties:
- *                          amount:
+ *                          balance:
  *                              type: integer
  *        '400':
  *          description: Error de validacion.
