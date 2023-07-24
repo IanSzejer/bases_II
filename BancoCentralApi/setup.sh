@@ -48,7 +48,7 @@ sleep 5
     userId integer NOT NULL, \
     finance_entity_id integer NOT NULL, \
     cbu integer NOT NULL, \
-    key_type varchar(20) NOT NULL CHECK(((key_type)::text = 'mail'::text) OR ((key_type)::text = 'cuil'::text) OR ((key_type)::text = 'phoneNum'::text) OR ((key_type)::text = 'imakey'::text) OR ((key_type)::text = 'passport'::text)), \
+    key_type varchar(20) NOT NULL CHECK(((key_type)::text = 'mail'::text) OR ((key_type)::text = 'cuil'::text) OR ((key_type)::text = 'phoneNumber'::text) OR ((key_type)::text = 'imaKey'::text) OR ((key_type)::text = 'passport'::text)), \
     primary key (userid, key_type), \
     FOREIGN KEY (userId) REFERENCES users (userId) ON DELETE CASCADE, \
     FOREIGN KEY (finance_entity_id) REFERENCES finance_entity (finance_entity_id) ON DELETE CASCADE \

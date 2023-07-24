@@ -90,13 +90,14 @@ export const DBAsscociate = async (associate: AssociateData,userId: string,res: 
 
         
         const result = await client.query('INSERT INTO users_keys ( userid, finance_entity_id, cbu, key_type )  VALUES ( $1, $2, $3, $4 )',[userId, result_0.rows[0].finance_entity_id, associate.cbu, associate.keyType]);
+        const result_f = await client.query('SELECT * FROM users_keys WHERE  userid = $1 AND key_type = $2 )',[userId, associate.keyType]);
         client.release();
     
         // Envía la respuesta con los datos obtenidos
-        res.status(200);
+        res.status(200).json(result_f.rows);
       } catch (error) {
         console.error('Error while consulting data base:', error);
-        res.status(200).send();
+        res.status(500).send({error: 'Error while consulting data base'});
       }
 }
 

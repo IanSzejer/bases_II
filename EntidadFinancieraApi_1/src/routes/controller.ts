@@ -122,7 +122,7 @@ router.get('/account/exists/:cbu', (req,res) =>{
  *          description: Error en la base de datos.
  */
 router.put('/account/deposit/:cbu', (req, res) => {
-    // body -> mail, CUIL, phoneNum, passport, passwprd
+    // body -> mail, CUIL, phoneNumber, passport, passwprd
     try{
         const amount = parseNumber(req.body.amount)
         DBDepositAmount(req.params.cbu,amount,res)
@@ -167,7 +167,7 @@ router.put('/account/deposit/:cbu', (req, res) => {
  *          description: Error en la base de datos.
  */
 router.put('/account/deposit/:cbu/rollback', (req, res) => {
-    // body -> mail, CUIL, phoneNum, passport, passwprd
+    // body -> mail, CUIL, phoneNumber, passport, passwprd
     try{
         const amount = parseNumber(req.body.amount)
         DBRollbackDepositAmount(req.params.cbu,amount,res)
@@ -213,7 +213,7 @@ router.put('/account/deposit/:cbu/rollback', (req, res) => {
  */
 
 router.put('/account/extract/:cbu', (req, res) => {
-    // body -> mail, CUIL, phoneNum, passport, passwprd
+    // body -> mail, CUIL, phoneNumber, passport, passwprd
     try{
         const amount = parseNumber(req.body.amount)
         DBExtractAmount(req.params.cbu,amount,res)
@@ -258,7 +258,7 @@ router.put('/account/extract/:cbu', (req, res) => {
  */
 
 router.put('/account/extract/:cbu/rollback', (req, res) => {
-    // body -> mail, CUIL, phoneNum, passport, passwprd
+    // body -> mail, CUIL, phoneNumber, passport, passwprd
     try{
         const amount = parseNumber(req.body.amount)
         DBRollBackExtractAmount(req.params.cbu,amount,res)

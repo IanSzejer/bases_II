@@ -267,7 +267,7 @@ router.get('/user/:userId/:key_type/history', (req,res) =>{
  *          description: Error de validacion.
  */
 router.post('/user/register', (req, res) => {
-    // body -> mail, CUIL, phoneNum, passport, password
+    // body -> mail, CUIL, phoneNumber, passport, password
     try{
         const newUser = parseUserData(req.body)
         DBRegisterUser(newUser,res)
@@ -409,7 +409,7 @@ router.post('/payment/user/:userId/:key_type', (req, res) => {
         const key = parseKeyType(req.params.key_type)  
         DBPayment(req.params.userId,key,newPayment,res)
     }catch(error){
-        res.status(400).send({error: 'Error de tipos de parametros userId o key_type(mail, passport, cuil, phoneNumber,pixKey'})
+        res.status(400).send({error: 'Error de tipos de parametros userId o key_type(mail, passport, cuil, phoneNumber,imaKey'})
     }    
 })
 

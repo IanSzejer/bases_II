@@ -3,7 +3,7 @@ export enum KeyTypes {
     Passport = 'passport',
     Cuil = 'cuil',
     PhoneNumber = 'phoneNumber',
-    PixKey = 'pixKey'
+    ImaKey = 'imaKey'
 }
 
 
