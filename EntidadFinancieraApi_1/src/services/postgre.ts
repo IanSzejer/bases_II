@@ -28,7 +28,8 @@ export const DBCheckAccountExistance = async (cbu: string,res: Response): Promis
       client.release();
       if (result.rows.length === 0){
         res.status(400).json({error :"Non existance account"});
-      }else{
+      }
+      else{
         res.status(200).json(result.rows);
       }
       
