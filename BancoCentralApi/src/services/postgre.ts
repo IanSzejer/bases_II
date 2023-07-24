@@ -16,8 +16,8 @@ export const DBRegisterUser = async (user: NewUser,res: Response): Promise<any> 
         // Envía la respuesta con los datos obtenidos
         res.status(200).json(user_info.rows);
       } catch (error) {
-        console.error('Error while consulting data base:', error);
-        res.status(500).json({ error: 'Error while consulting data base' + error });
+        console.error('Error while consulting data base :', error);
+        res.status(500).json({ error: 'Error while consulting data base ' + error });
         // res.status(200).send()
       }
 }
@@ -90,7 +90,7 @@ export const DBAsscociate = async (associate: AssociateData,userId: string,res: 
 
         
         const result = await client.query('INSERT INTO users_keys ( userid, finance_entity_id, cbu, key_type )  VALUES ( $1, $2, $3, $4 )',[userId, result_0.rows[0].finance_entity_id, associate.cbu, associate.keyType]);
-        const result_f = await client.query('SELECT * FROM users_keys WHERE  userid = $1 AND key_type = $2 )',[userId, associate.keyType]);
+        const result_f = await client.query('SELECT * FROM users_keys WHERE  userid = $1 AND key_type = $2 ',[userId, associate.keyType]);
         client.release();
     
         // Envía la respuesta con los datos obtenidos

@@ -8,7 +8,7 @@ const swaggerDefinition: OAS3Definition = {
   },
   servers: [
     {
-      url: "https://aortu22-cautious-space-garbanzo-7xvpxp74p953pq4q-3000.preview.app.github.dev",
+      url: "https://aortu22-sturdy-broccoli-w4rg4gvjgj9hj65-3000.preview.app.github.dev",
     },
   ],
   components:{

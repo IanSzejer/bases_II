@@ -61,8 +61,8 @@ sleep 5
   SQL_INSERT_ACCOUNT_5="INSERT INTO users (mail, cuil, phone_number, passport, password) VALUES ('martin@gmail.com', '26012345678', '0123456789', 'E01234567', 'GuitarPlayer88')"
   SQL_INSERT_ACCOUNT_6="INSERT INTO users (mail, cuil, phone_number, passport, password) VALUES ('ariel@gmail.com', '23876543210', '8765432109', 'F87654321', 'CoffeeLover42')"
 
-  FINANCIAL_API_LINK1="https://aortu22-cautious-space-garbanzo-7xvpxp74p953pq4q-3002.preview.app.github.dev"
-  FINANCIAL_API_LINK2="https://aortu22-cautious-space-garbanzo-7xvpxp74p953pq4q-3004.preview.app.github.dev"
+  FINANCIAL_API_LINK1="https://aortu22-sturdy-broccoli-w4rg4gvjgj9hj65-3002.preview.app.github.dev"
+  FINANCIAL_API_LINK2="https://aortu22-sturdy-broccoli-w4rg4gvjgj9hj65-3004.preview.app.github.dev"
 
   SQL_INSERT_FINANCIAL_ENTITY_1="INSERT INTO finance_entity (name, url) VALUES ('Rio', '$FINANCIAL_API_LINK1')"
   SQL_INSERT_FINANCIAL_ENTITY_2="INSERT INTO finance_entity (name, url) VALUES ('Naranja', '$FINANCIAL_API_LINK2')"
